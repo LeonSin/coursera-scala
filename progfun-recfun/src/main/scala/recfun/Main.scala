@@ -21,9 +21,19 @@ object Main {
 
   /**
    * Exercise 2
+   * 
+   * openParenthNum : the quantity of opening parentheses left unmatched 
+   * 
    */
-  def balance(chars: List[Char]): Boolean =  true
-
+  def balance(chars: List[Char]): Boolean = {
+    def listIterate(chars: List[Char], openParenthNum: Int): Int = {
+      if(chars.isEmpty || openParenthNum < 0) openParenthNum
+      else if( chars.head == '(' ) listIterate( chars.tail, openParenthNum + 1)
+      else if( chars.head == ')' ) listIterate( chars.tail, openParenthNum - 1)
+      else listIterate(chars.tail, openParenthNum)
+    }
+    listIterate(chars, 0) == 0
+  }
   /**
    * Exercise 3
    */
