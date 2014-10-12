@@ -10,6 +10,7 @@ object intsets {
 abstract class IntSet {
 	def incl(x: Int): IntSet
 	def contains(x: Int): Boolean
+	def union(other: IntSet): IntSet
 }
 
 object Empty extends IntSet {
@@ -17,6 +18,7 @@ object Empty extends IntSet {
 	// This defines a singleton object named Empty
 	def incl(x: Int): IntSet = new NonEmpty(x, Empty, Empty)
 	override def toString = "."
+	def union(other: IntSet): IntSet = other
 }
 
 class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet{
@@ -31,4 +33,7 @@ class NonEmpty(elem: Int, left: IntSet, right: IntSet) extends IntSet{
 		else this
 		
 	override def toString = "{" + left + elem + right + "}"
+	
+	def union(other: IntSet): IntSet =
+		((left union right) union other) incl elem
 }
